@@ -22,8 +22,10 @@ $task.fetch(myRequest).then(response => {
     console.log(response.body);
     const obj = JSON.parse(response.body);
     console.log(obj.content.elems[0].elemBalanceDesc);
-    $notify("房屋剩余电量", "蘑菇租房", obj.content.elems[0].elemBalanceDesc); // Success!
-    $done();
+    if (obj.content.elems[0].elemBalance < 20) {
+        $notify("蘑菇租房", "房屋剩余电量低", obj.content.elems[0].elemBalanceDesc); // Success!
+        $done();
+    }
 }, reason => {
     // reason.error
     $notify("Title", "Subtitle", reason.error); // Error!
